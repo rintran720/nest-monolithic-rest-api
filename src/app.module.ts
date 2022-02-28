@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import * as entities from '../libs/mongo/entities';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 @Module({
@@ -20,8 +19,10 @@ import { AppService } from './app.service';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE', 'nest-monolithic'),
-        entities: Object.values(entities),
+        entities: ['./dist/**/*.entity.{ts,js}'],
         migrations: [__dirname + '../migrations/*.{js,ts}'],
+        migrationsRun: true,
+        logging: true,
       }),
     }),
   ],
