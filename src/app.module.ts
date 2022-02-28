@@ -1,3 +1,4 @@
+import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -24,6 +25,19 @@ import { AppService } from './app.service';
         migrationsRun: true,
         logging: true,
       }),
+    }),
+    BullModule.registerQueueAsync({
+      name: 'notification_queue',
+      useFactory: (configService: ConfigService) => ({
+        name: 'notification_queue',
+        redis: {
+          name: 'notification_queue',
+          host: configService.get('REDIS_HOSTe'),
+          port: configService.get('REDIS_PORT'),
+          password: configService.get('REDIS_PASSWORD'),
+        },
+      }),
+      inject: [ConfigService],
     }),
   ],
   controllers: [AppController],
