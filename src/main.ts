@@ -9,6 +9,11 @@ async function bootstrap() {
   app.use(
     session({ secret: 'my-secret', resave: false, saveUninitialized: false }),
   );
+  app.enableCors({
+    origin: ['http://localhost:3000'],
+    credentials: true,
+  });
+
   await app.listen(3000);
 }
 bootstrap();
