@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import * as session from 'express-session';
 import helmet from 'helmet';
+import * as morgan from 'morgan';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -11,6 +12,7 @@ async function bootstrap() {
     session({ secret: 'my-secret', resave: false, saveUninitialized: false }),
   );
   app.use(helmet());
+  app.use(morgan('combined'));
   app.enableCors({
     origin: ['http://localhost:3000'],
     credentials: true,
