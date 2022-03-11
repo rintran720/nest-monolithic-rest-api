@@ -23,6 +23,7 @@ import { UsersModule } from './modules/users/users.module';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE', 'nest-monolithic'),
         entities: ['./dist/**/*.entity.{ts,js}'],
+        synchronize: true,
         migrations: [__dirname + '../migrations/*.{js,ts}'],
         migrationsRun: true,
         logging: true,

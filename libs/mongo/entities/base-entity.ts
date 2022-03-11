@@ -1,18 +1,14 @@
 import {
   BaseEntity as OrmEntity,
   CreateDateColumn,
-  DeleteDateColumn,
   ObjectIdColumn,
   UpdateDateColumn,
   VersionColumn,
 } from 'typeorm';
-import { EntityId } from 'typeorm/repository/EntityId';
 
 export abstract class BaseEntity extends OrmEntity {
   @ObjectIdColumn()
-  _id: EntityId;
-
-  createdBy?: EntityId;
+  _id: string;
 
   @CreateDateColumn({
     default: `now()`,
@@ -25,9 +21,6 @@ export abstract class BaseEntity extends OrmEntity {
     // nullable: true,
   })
   updatedAt?: Date;
-
-  @DeleteDateColumn()
-  deletedAt?: Date = null;
 
   deleted?: boolean = false;
 
