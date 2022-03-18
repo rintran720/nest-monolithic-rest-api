@@ -4,8 +4,8 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
+  Put,
 } from '@nestjs/common';
 import { EntityId } from 'typeorm/repository/EntityId';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -28,14 +28,10 @@ export class UsersController {
 
   @Get(':id')
   async findOne(@Param('id') id: EntityId) {
-    console.log(id);
-    const a = await this.usersService.findById(id);
-    console.log(a);
-
-    return a;
+    return await this.usersService.findById(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   async update(
     @Param('id') id: EntityId,
     @Body() updateUserDto: UpdateUserDto,

@@ -3,27 +3,20 @@ import {
   CreateDateColumn,
   ObjectIdColumn,
   UpdateDateColumn,
-  VersionColumn,
 } from 'typeorm';
 
 export abstract class BaseEntity extends OrmEntity {
   @ObjectIdColumn()
   _id: string;
 
-  @CreateDateColumn({
-    default: `now()`,
-    // nullable: true,
-  })
-  createdAt?: Date;
+  @UpdateDateColumn()
+  updated_at?: Date;
 
-  @UpdateDateColumn({
-    default: `now()`,
-    // nullable: true,
-  })
-  updatedAt?: Date;
+  @CreateDateColumn()
+  created_at?: Date;
 
   deleted?: boolean = false;
 
-  @VersionColumn()
-  version?: number = null;
+  // @VersionColumn()
+  // version?: number = null;
 }
